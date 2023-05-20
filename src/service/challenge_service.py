@@ -28,9 +28,9 @@ class ChallengeService(FirestoreService):
             end = start + timedelta(days=1)
 
         current_challenge = self.get_current_challenge()
-
-        # TODO: we should close the challenge based on end data and then
-        self.close_challenge(current_challenge.id)
+        if current_challenge:
+            # TODO: we should close the challenge based on end data and then
+            self.close_challenge(current_challenge.id)
 
         new_challenge = Challenge(name=name, start=start, end=end, state=ACTIVE)
 
@@ -40,7 +40,7 @@ class ChallengeService(FirestoreService):
             print(e)
             return None
 
-        return new_challenge.dict()
+        return new_challenge.id
 
     def get_current_challenge(self):
         result = self.collection.where('state', '==', ACTIVE).get()
