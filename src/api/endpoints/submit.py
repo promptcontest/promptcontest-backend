@@ -11,8 +11,9 @@ class Submit(BaseModel):
     user_id: int
 
 
-@router.post("/upvote")
-async def post_upvote(vote: Vote):
+@router.get("/images/{challenge_id}/{us}")
+async def get_images(challenge_id: int):
+
     # result = supabase.table('upvotes').insert(vote.dict()).execute()
     #
     # if result.error:
